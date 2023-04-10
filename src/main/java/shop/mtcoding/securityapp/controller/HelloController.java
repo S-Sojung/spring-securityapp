@@ -33,11 +33,12 @@ public class HelloController {
 
     @PostMapping("/join")
     public ResponseEntity<?> join(UserRequest.JoinDTO joinDTO) {
+        // select 가능
         UserResponse.JoinDTO data = userService.회원가입(joinDTO);
+        // select 됨
         // data.setRole(null); 트랜잭션이 종료되었기 떄문에 변경감지 안됨. Entity가 아닌 DTO 이기도 함.
         // 기존 객체를 깊은 복사 해서 하이버네이트가 관리하지 않게 함.
         ResponseDTO<?> responseDTO = new ResponseDTO<>().data(data);
         return ResponseEntity.ok().body(responseDTO);
-
     }
 }

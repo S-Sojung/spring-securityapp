@@ -21,6 +21,7 @@ public class UserRequest {
                     .password(password)
                     .email(email)
                     .role(role)
+                    .status(true)
                     .build();
         }
     }

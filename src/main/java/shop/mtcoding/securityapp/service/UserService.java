@@ -32,6 +32,5 @@ public class UserService {
         User userPS = userRepository.save(joinDTO.toEnity());
         // REST는 내가 insert 한 값을 프론트에게 무조건 돌려줘야한다.
         return new UserResponse.JoinDTO(userPS);
-
     }
 }

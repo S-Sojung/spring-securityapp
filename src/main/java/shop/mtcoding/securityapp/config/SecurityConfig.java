@@ -30,10 +30,13 @@ public class SecurityConfig {
                 .usernameParameter("username") // 이걸로 username의 name값을 변경 가능하다.
                 .passwordParameter("password")
                 .loginProcessingUrl("/login") // Post + x-www-from-urlEncoded 가 디폴트
-                .defaultSuccessUrl("/") // 원래 가려고 했던 페이지를 기억해준다
-                .successHandler((req, resp, authentication) -> { // 로그인 성공 할 때마다 로그 남기고 싶을 경우 //행위를 요구.
+                // .defaultSuccessUrl("/") // 원래 가려고 했던 페이지를 기억해준다
+                // successHandler 가 있으면 defaultSuccessUrl가 실행되지 않는다.
+                .successHandler((req, resp, authentication) -> {
+                    // 로그인 성공 할 때마다 로그 남기고 싶을 경우 //행위를 요구.
                     // 재사용할 일 이 있을 것 같으면 클래스를 만들어주면된다. 여기는 재사용 할 것 같지 않으니 바로 람다로 사용.
                     System.out.println("디버그 : 로그인이 완료되었습니다.");
+                    resp.sendRedirect("/");
                 })
                 .failureHandler((req, resp, ex) -> { // 에러 로그 남기고 싶을 경우 //
                     System.out.println("디버그 : 로그인 실패 -> " + ex.getMessage());
