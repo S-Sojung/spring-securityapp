@@ -3,10 +3,17 @@ package shop.mtcoding.securityapp.config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
 public class SecurityConfig {
+
+    @Bean
+    BCryptPasswordEncoder passwordEncoder() {
+        // 외부에서 쓸 것도 아니고 다 DI 해서 사용할 것
+        return new BCryptPasswordEncoder();
+    }
 
     // 내가 커스터마이징 하는 시큐리티 설정. 그래서 본래의 시큐리티 설정이 비활성화 된다.
     @Bean
