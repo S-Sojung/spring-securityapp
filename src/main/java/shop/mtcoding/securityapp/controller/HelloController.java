@@ -2,13 +2,9 @@ package shop.mtcoding.securityapp.controller;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -19,6 +15,7 @@ import shop.mtcoding.securityapp.core.jwt.MyJwtProvider;
 import shop.mtcoding.securityapp.dto.ResponseDTO;
 import shop.mtcoding.securityapp.dto.UserRequest;
 import shop.mtcoding.securityapp.dto.UserResponse;
+import shop.mtcoding.securityapp.model.UserRepository;
 import shop.mtcoding.securityapp.service.UserService;
 
 /**
@@ -38,8 +35,9 @@ import shop.mtcoding.securityapp.service.UserService;
 public class HelloController {
     private final UserService userService;
     private final AuthenticationManager authenticationManager;
+    private final UserRepository userRepository;
 
-    @GetMapping("/users/{id}")
+    @GetMapping("/users/1")
     public ResponseEntity<?> userCheck(@AuthenticationPrincipal MyUserDetails myUserDetails) {
         // AuthenticationPrincipal는 Authentication에 있는 pricipal 자리에 들어간다.
         // 이 자리에는 user 및 role이 있다.
@@ -51,7 +49,6 @@ public class HelloController {
 
     @GetMapping("/")
     public ResponseEntity<?> hello() {
-
         return ResponseEntity.ok().body("ok");
     }
 

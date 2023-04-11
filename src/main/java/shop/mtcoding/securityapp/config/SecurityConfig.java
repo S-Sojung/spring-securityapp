@@ -95,7 +95,7 @@ public class SecurityConfig {
             log.warn("워닝 : 인증 실패 : " + authException.getMessage());
             log.error("에러 : 인증 실패 : " + authException.getMessage());
 
-            response.setContentType("text/plain; charset=utf-8");
+            response.setContentType("text/plain; chatset=utf-8");
             response.setStatus(401);
             response.getWriter().println("인증 실패");
         });
@@ -108,7 +108,7 @@ public class SecurityConfig {
             log.warn("워닝 : 권한 실패 : " + accessDeniedException.getMessage());
             log.error("에러 : 권한 실패 : " + accessDeniedException.getMessage());
 
-            response.setContentType("text/plain; charset=utf-8");
+            response.setContentType("text/plain; chatset=utf-8");
             response.setStatus(403);
             response.getWriter().println("권한 실패");
         });
