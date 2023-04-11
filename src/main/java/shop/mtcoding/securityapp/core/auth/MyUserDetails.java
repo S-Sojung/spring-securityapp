@@ -22,7 +22,7 @@ public class MyUserDetails implements UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         Collection<GrantedAuthority> authorities = new ArrayList<>();
-        authorities.add(() -> user.getRole()); // hasRole 로 설정한 Role값과 맞는지 비교해서 true false를 반환해준다.
+        authorities.add(() -> "ROLE_" + user.getRole()); // hasRole 로 설정한 Role값과 맞는지 비교해서 true false를 반환해준다.
         return authorities;
     }
 
