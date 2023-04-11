@@ -1,13 +1,17 @@
 package shop.mtcoding.securityapp.service;
 
+import java.util.Optional;
+
 import javax.transaction.Transactional;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import lombok.RequiredArgsConstructor;
+import shop.mtcoding.securityapp.core.jwt.MyJwtProvider;
 import shop.mtcoding.securityapp.dto.UserRequest;
 import shop.mtcoding.securityapp.dto.UserResponse;
+import shop.mtcoding.securityapp.dto.UserRequest.LoginDTO;
 import shop.mtcoding.securityapp.model.User;
 import shop.mtcoding.securityapp.model.UserRepository;
 
@@ -33,4 +37,20 @@ public class UserService {
         // REST는 내가 insert 한 값을 프론트에게 무조건 돌려줘야한다.
         return new UserResponse.JoinDTO(userPS);
     }
+
+    public String 로그인(LoginDTO loginDTO) {
+        Optional<User> userOP = userRepository.findByUsername(loginDTO.getUsername());
+        if (userOP.isPresent()) {
+            User userPS = userOP.get();
+            // 입력한 비밀번호와 암호화된 비밀번호를 비교 분석해줌 맞다면 true로 넘어감
+            if (passwordEncoder.matches(loginDTO.getPassword(), userPS.getPassword())) {
+                String jwt = MyJwtProvider.create(userPS);
+                return jwt;
+            }
+            throw new RuntimeException("패스워드 틀렸어");
+        } else {
+            throw new RuntimeException("토큰 없어");
+        }
+    }
+
 }
